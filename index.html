@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="build" content="2026-10-20-final">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ff5fa8">
+<title>狗狗訓練遊樂場</title>
+<meta name="description" content="每天更新！一句話加紓壓小遊戲，隨便逛。營業到 12/6。">
+<!-- LINE / Facebook 連結預覽：og:image 請換成你自己的網址（見說明）-->
+<meta property="og:type" content="website">
+<meta property="og:title" content="狗狗訓練遊樂場">
+<meta property="og:description" content="每天更新的紓壓小遊戲，隨便玩。">
+<meta property="og:image" content="https://YOUR-ACCOUNT.github.io/YOUR-REPO/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%95%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#fff0f7;--card:#fff;--ink:#111;--mute:#6b4a5c;--acc:#ff5fa8;--grn:#3ddc84;--lab:#0f7a45;--labt:#fff;--line:#111;--shadow:#ff5fa8}
+@media (prefers-color-scheme:dark){:root{--bg:#111;--card:#1d1d1d;--ink:#f5f5f5;--mute:#d9a9c2;--line:#ff5fa8;--shadow:#3ddc84;--lab:#3ddc84;--labt:#111}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;line-height:1.75;overflow-wrap:anywhere;-webkit-tap-highlight-color:transparent}
+.stripe{height:14px;background:repeating-linear-gradient(-45deg,#ff5fa8 0 12px,#3ddc84 12px 24px)}
+main{max-width:560px;margin:0 auto;padding:26px max(16px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+h1{font-size:clamp(1.25rem,5.6vw,1.6rem);margin:0 0 6px;font-weight:900;line-height:1.35}
+.title{font-size:clamp(1.7rem,8vw,2.1rem);line-height:1.4}
+.title .k{margin-bottom:.1em}
+.k{display:inline-block;background:var(--acc);color:#111;padding:0 .35em;font-style:italic;letter-spacing:.04em;transform:skewX(-6deg);margin-right:.2em}
+.sub{color:var(--mute);font-size:.9rem;margin:0 0 24px}
+.card{background:var(--card);border:3px solid var(--line);border-radius:6px;padding:18px;margin-bottom:22px;box-shadow:5px 5px 0 var(--shadow);animation:rise .7s ease both}
+.card:nth-of-type(1){animation-delay:.15s}.card:nth-of-type(2){animation-delay:.3s}.card:nth-of-type(3){animation-delay:.45s}.card:nth-of-type(4){animation-delay:.6s}.card:nth-of-type(5){animation-delay:.75s}
+.title,.sub{animation:rise .6s ease both}.sub{animation-delay:.08s}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.label{display:inline-block;background:var(--lab);color:var(--labt);font-size:.78rem;font-weight:700;letter-spacing:.12em;padding:1px 10px;margin-bottom:10px}
+.today{font-size:1.2rem;font-weight:700;margin:0}
+.fl{font-size:2rem;font-weight:900;font-style:italic;line-height:1.3}
+.fst{color:var(--acc);letter-spacing:.2em}
+.fp{margin:.5em 0 0}
+footer{color:var(--mute);font-size:.82rem;text-align:center;margin-top:30px}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+
+/* 賽道 */
+.track{--dw:clamp(72px,22vw,104px);--sky1:#ffe3f1;--sky2:#fff6fb;--gr:#bdf0d3;position:relative;height:calc(var(--dw)*.78 + 96px);background:linear-gradient(var(--sky1),var(--sky2));border:2px solid var(--line);overflow:hidden;margin:12px 0}
+.ground{position:absolute;left:0;right:0;bottom:0;height:28px;background:var(--gr);border-top:3px solid #111}
+.sc{position:absolute;font-size:1.5rem;line-height:1;opacity:.9;pointer-events:none;user-select:none}
+.sc.g{bottom:26px;font-size:1.7rem}.sc.s{top:8px}
+.gate{position:absolute;bottom:22px;width:4px;height:46px;background:repeating-linear-gradient(#ff5fa8 0 8px,#3ddc84 8px 16px);border:1px solid #111;transition:opacity .4s}
+.gate b{position:absolute;left:-7px;top:-20px;width:18px;height:18px;line-height:15px;text-align:center;border:2px solid #111;border-radius:50%;background:#fff;color:#111;font-size:.7rem}
+.gate.done{opacity:.4}
+.fin{position:absolute;right:10px;bottom:20px;font-size:2rem;line-height:1}
+.fin.hop{animation:hop .5s ease-in-out 4}
+@keyframes hop{50%{transform:translateY(-14px) rotate(8deg)}}
+.dog{position:absolute;left:0;bottom:22px;width:var(--dw);padding:0;margin:0;border:0;background:none;cursor:pointer;transition:transform .8s cubic-bezier(.22,.8,.3,1);will-change:transform;z-index:2;touch-action:manipulation;color:inherit;font:inherit}
+.dog-in{display:block;width:100%}
+.dog-in.jump{animation:jump .7s ease-out}
+@keyframes jump{0%{transform:none}40%{transform:translateY(-28px) rotate(-7deg)}75%{transform:translateY(0) rotate(2deg)}100%{transform:none}}
+.dog-in.hopx{animation:hopx .45s ease-out}
+@keyframes hopx{40%{transform:translateY(-12px)}100%{transform:none}}
+.dogsvg{display:block;width:100%;height:auto;overflow:visible;animation:idle 2.2s ease-in-out infinite}
+@keyframes idle{50%{transform:translateY(-1.5px)}}
+.wh{animation:spin .45s linear infinite;animation-play-state:paused}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tail{animation:wag 1.3s ease-in-out infinite alternate}
+@keyframes wag{from{transform:rotate(-5deg)}to{transform:rotate(7deg)}}
+.ear1{animation:ear 5s ease-in-out infinite}.ear2{animation:ear 6.3s ease-in-out 1.7s infinite}
+@keyframes ear{0%,90%,100%{transform:none}94%{transform:rotate(-9deg)}}
+.speed{opacity:0;transition:opacity .2s}
+.rolling .wh{animation-play-state:running}.rolling .speed{opacity:1}.rolling .tail{animation-duration:.4s}
+.happy .tail{animation-duration:.22s}
+.prop{position:absolute;right:6%;top:-24px;font-size:1.25rem;line-height:1;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.talk .prop{visibility:hidden}
+.bubble{position:absolute;bottom:calc(100% + 2px);left:0;white-space:nowrap;background:#fff;color:#111;border:2px solid #111;border-radius:12px;padding:1px 10px;font-size:.85rem;font-weight:700;line-height:1.6;opacity:0;pointer-events:none;transition:opacity .2s}
+.talk .bubble{opacity:1}
+.puff{position:absolute;bottom:24px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #111;opacity:.9;animation:puff .6s ease-out forwards;pointer-events:none}
+@keyframes puff{to{transform:translate(-18px,-8px) scale(1.8);opacity:0}}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.confetti s{position:absolute;top:-14px;width:8px;height:12px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(240px) rotate(var(--r));opacity:.9}}
+.say{min-height:3.6em;margin:8px 0 12px;font-size:1rem}
+.row{display:flex;gap:12px}
+.btn{flex:1 1 0;min-height:46px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;border:2px solid #111;background:var(--acc);color:#111;padding:8px 18px;box-shadow:3px 3px 0 #111;touch-action:manipulation}
+.btn:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 #111}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);box-shadow:3px 3px 0 var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* 完賽頁 */
+#end{text-align:center;padding-top:12vh;overflow:hidden}
+#end h1{font-size:1.6rem}
+.enddog{position:relative;width:min(62vw,240px);margin:0 auto 22px;animation:rise .8s ease both}
+.wavearm{display:none}
+.enddog .wavearm{display:inline}.enddog .nearfront{display:none}
+.arm{transform-origin:92px 56px}
+.enddog .arm{animation:wave .7s ease-in-out .5s infinite}
+@keyframes wave{0%,100%{transform:rotate(-72deg)}50%{transform:rotate(-114deg)}}
+.bye{position:absolute;right:-6px;top:-26px;background:#fff;color:#111;border:2px solid #111;border-radius:14px;padding:1px 14px;font-weight:700;font-size:1rem;line-height:1.6;white-space:nowrap;animation:rise .6s ease .7s both,bob 1.8s ease-in-out 1.4s infinite}
+.endtext{animation:rise .8s ease .5s both}
+
+@media (max-width:420px){.card{padding:15px}.fl{font-size:1.8rem}}
+@media (prefers-reduced-motion:reduce){
+ .dogsvg,.tail,.ear1,.ear2,.prop,.wh,.fin.hop,.dog-in.jump,.dog-in.hopx,.bye,.enddog .arm{animation:none!important}
+ .enddog .arm{transform:rotate(-95deg)}
+ .dog{transition-duration:.01ms!important}
+ .card,.title,.sub,.enddog,.endtext{animation:fade .8s ease both!important}
+ .card:nth-of-type(n){animation-delay:.1s}
+}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<noscript><main><p>這個小站需要開啟 JavaScript 才會顯示內容。</p></main></noscript>
+
+<main id="live">
+  <h1 class="title"><span class="k">狗狗</span><br>訓練遊樂場</h1>
+  <p class="sub">每天更新！營業到 12/6。</p>
+
+  <section class="card">
+    <div class="label">TODAY'S LINE　今日一句</div>
+    <p class="today" id="today"></p>
+  </section>
+
+  <section class="card">
+    <div class="label" id="gl">MINI GAME　狗狗慢慢滑</div>
+    <div class="track" id="track">
+      <div id="scenery"></div>
+      <div class="ground"></div>
+      <div id="gates"></div>
+      <div class="fin" id="fin"></div>
+      <button class="dog" id="dog" type="button" aria-label="摸摸狗狗">
+        <span class="prop" id="prop" aria-hidden="true"></span>
+        <span class="bubble" id="bubble" aria-hidden="true"></span>
+        <span class="dog-in" id="dogIn"></span>
+      </button>
+    </div>
+    <div class="say" id="say" aria-live="polite"></div>
+    <div class="row"><button class="btn" id="push" type="button">推一把</button><button class="btn ghost" id="reset" type="button">重新開始</button></div>
+  </section>
+
+  <section class="card">
+    <div class="label">FORTUNE　今日運勢</div>
+    <div class="fl" id="fl"></div><div class="fst" id="fs"></div>
+    <p class="fp">宜：<span id="fy"></span><br>忌：<span id="fj"></span><br>幸運物：<span id="fi"></span>　幸運色：<span id="fc"></span></p>
+  </section>
+  <section class="card"><div class="label">KASSO 小冷知識</div><p class="fp" id="tv"></p></section>
+  <section class="card"><div class="label">遊戲人生小語</div><p class="fp" id="mm"></p></section>
+  <footer>沒有計數器，沒有人知道你來過。</footer>
+</main>
+
+<main id="end" hidden>
+  <div class="enddog"><div id="dogEnd"></div><span class="bye" aria-hidden="true">掰掰～</span></div>
+  <div class="endtext">
+    <h1>🏁 <span class="k">本站已打烊</span></h1>
+    <p>這個小站營業到 12/6，謝謝你來過。</p>
+    <p class="sub">祝你一切順利，慢慢滑也很好。</p>
+  </div>
+</main>
+<div class="stripe"></div>
+
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const DOG=`<svg class="dogsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 -8 140 108" aria-hidden="true" focusable="false"><g class="speed" stroke="#111" stroke-width="2.5" stroke-linecap="round" fill="none"><path d="M3 52h10"/><path d="M1 62h8"/><path d="M5 42h7"/></g><g><path d="M10 70Q12 79 22 79L118 79Q128 79 130 70" fill="none" stroke="#111" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 70Q12 79 22 79L118 79Q128 79 130 70" fill="none" stroke="#ff5fa8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="36" y="83" width="12" height="5" fill="#111"/><rect x="92" y="83" width="12" height="5" fill="#111"/><g class="wh" style="transform-origin:42px 91px"><circle cx="42" cy="91" r="7.5" fill="#3ddc84" stroke="#111" stroke-width="3"/><path d="M42 85.5V96.5M36.5 91H47.5" stroke="#111" stroke-width="2"/></g><g class="wh" style="transform-origin:98px 91px"><circle cx="98" cy="91" r="7.5" fill="#3ddc84" stroke="#111" stroke-width="3"/><path d="M98 85.5V96.5M92.5 91H103.5" stroke="#111" stroke-width="2"/></g></g><g stroke="#111" stroke-width="2.5" stroke-linejoin="round"><rect x="51" y="50" width="9" height="26" rx="4" fill="#c58a45"/><rect x="74" y="50" width="9" height="26" rx="4" fill="#c58a45"/><rect x="37" y="50" width="10" height="26" rx="4.5" fill="#e0a65c"/></g><g fill="#f6e6c4" stroke="#111" stroke-width="2"><ellipse cx="42" cy="74.5" rx="6" ry="3"/></g><g transform="translate(0,-7)"><g class="tail" style="transform-origin:36px 47px"><path d="M36 47C23 47 16 38 19 27C21 20 28 19 29 25" fill="none" stroke="#111" stroke-width="10" stroke-linecap="round"/><path d="M36 47C23 47 16 38 19 27C21 20 28 19 29 25" fill="none" stroke="#e0a65c" stroke-width="5" stroke-linecap="round"/></g><g class="nearfront"><rect x="87" y="50" width="10" height="26" rx="4.5" fill="#e0a65c" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="92" cy="74.5" rx="6" ry="3" fill="#f6e6c4" stroke="#111" stroke-width="2"/></g><g class="ear2" style="transform-origin:94px 22px"><path d="M90 24L89 7L102 19Z" fill="#8e5424" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></g><g class="ear1" style="transform-origin:102px 20px"><path d="M96 22L99 3L111 18Z" fill="#a8672f" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M100 19L101 9L106 17Z" fill="#f2a3b8"/></g><g fill="#111" stroke="#111" stroke-width="5" stroke-linejoin="round"><path d="M33 50C33 39 43 37 57 37L82 37C95 37 101 44 101 53C101 62 95 65 86 65L46 65C38 65 33 59 33 50Z"/><ellipse cx="94" cy="38" rx="11" ry="15" transform="rotate(25 94 38)"/><circle cx="104" cy="28" r="13"/><rect x="108" y="25" width="21" height="14" rx="7"/></g><g fill="#e0a65c"><path d="M33 50C33 39 43 37 57 37L82 37C95 37 101 44 101 53C101 62 95 65 86 65L46 65C38 65 33 59 33 50Z"/><ellipse cx="94" cy="38" rx="11" ry="15" transform="rotate(25 94 38)"/><circle cx="104" cy="28" r="13"/><rect x="108" y="25" width="21" height="14" rx="7"/></g><path d="M50 40Q66 37 81 40Q73 48 56 47Z" fill="#c58a45" opacity=".75"/><ellipse cx="93" cy="56" rx="6.5" ry="8" fill="#f6e6c4"/><path d="M87 38L103 44L94 58Z" fill="#3ddc84" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><g class="wavearm" transform="translate(0,7)"><g class="arm"><rect x="87" y="52" width="10" height="24" rx="4.5" fill="#e0a65c" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="92" cy="74" rx="6" ry="3" fill="#f6e6c4" stroke="#111" stroke-width="2"/></g></g><ellipse cx="106" cy="34" rx="4" ry="2.5" fill="#ff8fb3" opacity=".6"/><circle cx="111" cy="26" r="2.8" fill="#111"/><circle cx="112" cy="25" r=".9" fill="#fff"/><path d="M126 35Q118 40.5 111 35.5" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/><path class="tongue" d="M117 38.5Q117 47 121.5 46Q125 45 123 37.5Z" fill="#ff7aa8" stroke="#111" stroke-width="1.8" stroke-linejoin="round"/><ellipse cx="127.5" cy="29.5" rx="3.6" ry="3" fill="#111"/></g></svg>`;
+const LINES=[
+"今天不用很厲害，把今天過完就是滿分。",
+"低潮像 KASSO 的下坡賽道，看起來很陡，但每個選手都是一格一格滑過去的。",
+"系統通知：關心機器人已上線。今天有喝水嗎？沒有的話，我先幫你喝一口。",
+"慢慢來比較快，這句話是滑板教我的。",
+"你不需要立刻好起來，好起來可以排隊。",
+"今天的天氣預報：心情多雲，偶爾有幽默陣雨。",
+"提醒：你是會把遊戲打到全破的人，這點很厲害。",
+"洗個熱水澡，系統將自動回復 20% 精神值。",
+"沒有人規定要一次走出來，中途休息站是合法的。",
+"如果今天只做了一件事，就是撐過了今天，也算通關。",
+"冷知識：狗狗的嗅覺比人類靈敏很多，到處聞聞其實是在「讀新聞」。",
+"出門走五分鐘，不用目的地，走回來就算數。",
+"難過的時候吃點好吃的，不是逃避，是補給。",
+"你值得被好好對待，包括被自己好好對待。",
+"今日運勢籤：大吉。宜：出門曬太陽、吃點甜的。忌：把自己想得太糟。",
+"有些日子是存檔點，什麼都不用做，讀取之後再繼續。",
+"系統偵測到你今天也有在呼吸，表現優異，頒發小星星一顆 ⭐",
+"睡飽是最便宜的回血藥水，效果還不錯。",
+"如果有人問你好不好，「還行」是完整又誠實的答案。",
+"今天的賽道有點長，但你不用一次滑完。",
+"抽到一支籤：『大吉，宜出門買杯喜歡的飲料。』不是我說的，是籤說的。",
+"你以前撐過的那些爛日子，現在都過去了。",
+"今天的目標：比昨天多笑一次，笑點低也算。",
+"把窗戶打開十秒鐘，讓新鮮空氣進來打個招呼。",
+"放歌單裡最嗨的那一首，音量調大一點點。",
+"不需要證明自己已經好了，好的速度由你決定。",
+"平衡不是一直站穩，是跌倒之後還會再上板。",
+"今天的你，已經比自己以為的更努力了。",
+"想放空就放空，狗狗趴著曬太陽不是在偷懶，是在充電。",
+"【系統公告】今日份的打氣額度已送達。本訊息為自動發送，不需簽收。",
+"遇到卡關就先放著，下一個彎道可能比較順。",
+"今日預報：晚上會有點涼，記得多穿一件。",
+"把今天的一個小開心記起來，哪怕只是喜歡的飲料剛好有貨。",
+"摔過的人才知道怎麼落地，你已經很有經驗了。",
+"今天也許不是最佳狀態，但願意上場就很了不起。",
+"機器人今日巡邏報告：天氣正常，地球轉動正常，一切正常，請繼續保持。",
+"你的步調不用跟任何人一樣。",
+"今日冷知識：台灣土狗以耐操、聰明、適應力強聞名。",
+"今天看到一朵長得很有個性的雲，特此回報，沒有其他事。",
+"不管昨天如何，今天都是一場新的比賽。",
+"累了就停，站在場邊看風景也是一種策略。",
+"運勢籤：中吉。宜：睡午覺。忌：跟自己過不去。",
+"冷笑話：為什麼企鵝走路搖搖晃晃？因為牠在練平衡，跟滑板一樣。",
+"機器人小提醒：今天不需要被任何事情打敗，包括待辦清單。",
+"【系統通知】檢測到附近可能有好吃的東西，建議前往確認。",
+"今日籤詩：小吉。宜：隨便晃晃。忌：想太多。機器人不負責解籤。",
+"不論哪種節奏，都剛剛好。",
+"最後一天的賽道：不管過程如何，你已經走到這裡了。"
+];
+const TRIVIA=[
+"KASSO 是「滑走」的日文發音，意思就是滑行、滑過去。",
+"節目由 TBS 製作，被稱為「滑板版的 SASUKE（Ninja Warrior）」。",
+"第一屆的關卡有綠山下坡、渦潮、東京顛倒，最後還有終點前的「Million Gate」。",
+"第一屆「綠山下坡」是一條 400 公尺長的下坡計時賽。",
+"第一屆「渦潮」要滑過池塘上一條很窄的通道，抵達漂浮的小島。",
+"「東京顛倒」是三層樓高、全長 180 公尺的障礙賽道。",
+"完成全部關卡的「完全制覇」者，可以拿到 100 萬日圓獎金。",
+"渦潮的形狀是越來越窄的螺旋，到最後會變成一條軌道。",
+"節目在綠山攝影城（Midoriyama）拍攝，這裡也是 SASUKE 的場地。",
+"現場的插畫是日本滑板文化先驅 ESOW 專門為節目畫的。",
+"這個點子最早來自 TBS《筋肉番付》裡 1990 年代的滑板單關挑戰。",
+"官方 YouTube 頻道有放英文字幕的完整節目。",
+"KASSO 還出過手機遊戲《Kasso Gaiden: Escape from the Skaterverse》。",
+"第一屆在 2024 年 3 月以深夜節目的形式首播。",
+"首播隔天，製作組把 13 分鐘的精華片段上傳 YouTube，意外爆紅，累積數百萬次觀看。",
+"第一屆總共有五位選手完全制覇，超出製作組的預期。",
+"每一屆的第一關都是下坡計時賽，通常一分鐘左右就能滑完，最慢的選手會被淘汰。",
+"第二關偏重軌道滑行與平衡，成績是用「通過賽道的百分比」來計算。",
+"後來第二關改成「Rail Coaster」，是有落差、隆起和蹺蹺板的軌道。",
+"比賽中選手可以隨時用腳蹬地，也可以用手維持平衡。",
+"掉進水裡一定會被淘汰，不管在哪一關。",
+"每個關卡都要帶著滑板按下終點的按鈕，才算完成。",
+"正式比賽前有開放練習，但正式比賽時多數關卡只有一次機會。",
+"第四屆的 Rail Coaster 因為歷來成績太低，特別給了兩次嘗試機會。",
+"賽事分成兩個階段：淘汰階段，以及沒完成就結束的生存階段。",
+"有些屆的第三關是角度很大的平衡關卡，第一個叫「Origami」，造型像一隻摺紙。",
+"「Grasshopper」關卡由七片傾斜的荷葉造型平台組成，落差很大。",
+"東京顛倒前兩屆的時間限制是嚴格的 31 秒。",
+"第三屆東京顛倒的時限加到 63 秒，還藏了四個各加 2 秒的隱藏按鈕。",
+"最終關「Million Gate」的終點閘門會不斷移動，大約 10 秒內要完成。",
+"後來的最終關改成「Million Jump」。",
+"第二屆開始有外國選手參賽，例如美國的 Leo Romero 和拉脫維亞的 Madars Aspe。",
+"第二屆起官方用 YouTube 直播英文字幕，許多社群短片觀看破千萬。",
+"第三屆的完全制覇者是美國選手 Jiro Platt。",
+"Hayate Kamimura 和 Ren Suematsu 是唯二四屆主賽事都有參加的選手。",
+"東京顛倒的最快通關紀錄是 27.07 秒，由 Hayate Kamimura 創下。",
+"綠山下坡的最快紀錄是第三屆 Jamie Foy 的 48.10 秒。",
+"KASSO 的前身是 TBS 的《Skateboarder》，1997 年首次播出，只有一個關卡。",
+"《Skateboarder》的冠軍獎金是 300 萬日圓，是 KASSO 的三倍。",
+"《Skateboarder》裡選手不能完全停下來，這點跟 KASSO 不同。",
+"2020 年東京奧運滑板首次成為正式項目，日本拿下 3 金 1 銀 1 銅。",
+"TBS 在 2025 年的說明會提到，未來想舉辦 KASSO 世界盃。",
+"KASSO 也在美國和中國辦過活動，日本團隊會親自出國維持品質。",
+"「Gaiden」是日文「外傳」的意思，指的是小型的單關挑戰賽事。",
+"Gaiden 賽事辦過舊金山、池袋，以及中國的 Aranya。",
+"知名滑手 Eric Koston 也出現在池袋 Gaiden 的名單中。",
+"2026 年 3 月，KASSO 在美國長灘舉辦了「KASSO Fest: Skate and Sound」。",
+"長灘大會有 30 位選手，淘汰階段分成 A、B 兩組進行。"
+];
+const MEMES=[
+"【存檔點】人生沒有快速讀檔，但喝杯水就算回血。",
+"【新手村】每個大神都曾經在新手村被史萊姆打過。",
+"【卡關】卡關不是失敗，是遊戲在說「先去升個等」。",
+"【NPC】今天不用當 NPC，你是主角，台詞自己選。",
+"【Boss 戰】Boss 看起來很大，但通常有一個很搞笑的弱點。",
+"【回血】睡覺 +50 HP，吃東西 +30 HP，發呆 +10 HP，三個一起用效果加倍。",
+"【重生點】倒下也沒關係，重生點就在附近。",
+"【隱藏關卡】據說隱藏關卡都在最不起眼的角落，例如午後的陽光。",
+"【裝備】最強的裝備是睡飽的眼睛，攻擊力 +99。",
+"【暫停鍵】這個遊戲有暫停鍵，隨時可以按，系統不扣分。",
+"【通關秘技】上上下下左右左右……總之今天先吃點好吃的。",
+"【難度設定】今天調成「簡單模式」也完全合法。",
+"【任務欄】今日主線任務：照顧好自己。支線任務：全部選填。",
+"【背包】背包空間有限，不重要的煩惱可以直接丟掉。",
+"【經驗值】今天做的每件小事，都有偷偷加經驗值。",
+"【自動存檔】系統偵測到你今天很努力，已自動存檔。",
+"【體力條】體力低於 30%，建議立刻找地方坐下。",
+"【補給站】前方有補給站，備有零食、熱水與一首好歌。",
+"【Loading】心情還在載入中，請稍等，不要急著重新整理。",
+"【更新公告】系統已更新為「慢慢來」版本，修正了「逼自己」的錯誤。",
+"【成就解鎖】成就解鎖：今天也有認真過日子。",
+"【地圖】迷霧還沒散的地方，走近一點就會慢慢看清楚。",
+"【傳送點】找到傳送點了，可以傳送到沙發。",
+"【Buff】喝到熱湯，獲得「暖暖的」狀態，持續兩小時。",
+"【Debuff】「想太多」是一種減益狀態，可以用散步解除。",
+"【隊友】好隊友不會一直叫你衝，而是在旁邊說「慢慢來」。",
+"【技能樹】今天先點「發呆」技能，明天再看要不要升級。",
+"【彩蛋】生活裡的彩蛋：剛好趕上的公車、剛好有貨的飲料。",
+"【角色面板】韌性 +10，幽默 +5，睡眠 -3，建議補眠。",
+"【難度曲線】前面的關卡難，不代表後面也這麼難，遊戲設計通常是有起伏的。",
+"【暫存】煩惱先暫存，晚點再處理，反正不會跑掉。",
+"【快捷鍵】按下「深呼吸」快捷鍵，效果比想像中好。",
+"【掉寶】打完怪有時候會掉好東西，例如一頓好吃的飯。",
+"【鎖定】不要鎖定難搞的怪，先去採點花。",
+"【加載畫面】加載畫面的小提示：「今天也請多喝水」。",
+"【主角】在遊戲裡，主角不需要完美，只需要繼續往前走。",
+"【復活水晶】睡一覺就是復活水晶，成功率很高。",
+"【手感】今天手感不好很正常，明天再練就好。",
+"【Bug】偶爾卡 bug 很正常，重開機通常能解決。",
+"【帳號】你的帳號沒有被封鎖，所有進度都還在。",
+"【天氣系統】這個世界有天氣系統，所以心情下雨很合理，雨後通常會放晴。",
+"【練功】不想練功的日子，就當休息日，經驗值照樣累積。",
+"【NPC 對話】有些 NPC 的台詞很煩，直接跳過對話是合法的。",
+"【Boss 掉落】Boss 掉落的最好道具，通常是「經驗」。",
+"【金手指】本遊戲沒有金手指，但有很多可愛的捷徑，例如睡飽。",
+"【小地圖】抬頭看看小地圖，你比自己想的走得更遠。",
+"【結算畫面】通關結算：撐住、吃飯、睡覺，三星評價。",
+"【血量】血量不用一直是滿的，維持在安全範圍就是好玩家。"
+];
+const START=Date.UTC(2026,9,20), LAST=47; /* 12/6 是第 47 天（從 0 算起） */
+
+const DEFG=[
+ [20,"第一關「發呆彎道」：深呼吸，這關不用速度，只要不急。"],
+ [40,"第二關「碎碎念坡」：腦袋有點吵？沒關係，吵完就過去了。"],
+ [60,"第三關「懶洋洋平地」：躺一下也算滑行，裁判默許。"],
+ [80,"第四關「小確幸衝刺」：想像一下最想吃的東西，加速！"]
+];
+const THEMES=[
+{n:"狗狗慢慢滑",prop:"",f:"🏁",w:"🏁 抵達終點！不管快慢，你都是今天的冠軍。",g:null,
+ i:"按「推一把」，讓小狗狗往前滑。慢慢來，沒有計時。",
+ p:["推一把！小狗狗動了動腳。","漂亮，滑板輪子發出了開心的聲音。","穩穩的，不用比別人快。","剛剛那一下姿勢很帥。","慢是慢，但是在前進。"],
+ sky:["#ffe3f1","#fff6fb"],gr:"#bdf0d3",sk:["☁️","☁️"],gd:["🌳","🌿","🌼","🌳"]},
+{n:"狗狗出門買飲料",prop:"🧋",f:"🧋",w:"🧋 買到了！今天的冠軍飲料到手。",
+ g:["第一關「紅綠燈」：等一下沒關係，飲料不會跑。","第二關「小斜坡」：慢慢滑，不要灑出來。","第三關「排隊人龍」：前面還有三個人，剛好可以用滑板耍帥。","第四關「點單櫃台」：微糖少冰還是正常糖？今天你說了算。"],
+ i:"按「推一把」，小狗狗要去買今天的飲料。",
+ p:["推一把！飲料店就在前面。","輪子滾得很開心，路上有點香。","小狗狗哼起歌來了。","穩穩的，不要灑出來。","前面好像沒什麼人排隊。"],
+ sky:["#fff3d6","#ffe6f0"],gr:"#d9d9e3",sk:["☁️","🎈"],gd:["🏙️","🚏","🌳","🏪"]},
+{n:"狗狗夜市大冒險",prop:"🍢",f:"🍢",w:"🍢 逛完全場！今日夜市冠軍就是你。",
+ g:["第一關「蔥油餅攤」：香味太強，差點被勾走。","第二關「撈魚攤」：狗狗表示不要欺負小魚。","第三關「珍奶攤」：決定先拿一杯，邊走邊喝。","第四關「烤香腸」：終點在望，口水也在望。"],
+ i:"按「推一把」，小狗狗要去夜市逛逛。",
+ p:["推一把！前面傳來烤香腸的味道。","小狗狗被燈籠吸引了一下。","人潮擠擠的，但狗狗滑得很順。","聽說前面有好吃的在排隊。","差點被蔥油餅勾走，努力忍住。"],
+ sky:["#3b1f4a","#7a2b63"],gr:"#47304f",sk:["🏮","🏮","🏮"],gd:["🍜","🍡","🎈","🍢"]},
+{n:"狗狗登山健行",prop:"🥾",f:"⛰️",w:"⛰️ 登頂！風景今天免費。",
+ g:["第一關「小石階」：每一階都算數。","第二關「涼亭」：坐下喝口水，風景不會跑。","第三關「陡坡」：爬不動就牽著走，也是登頂路線。","第四關「山頂前最後一彎」：已經聞到風的味道了。"],
+ i:"按「推一把」，小狗狗要去爬山看風景。",
+ p:["推一把！空氣聞起來很清新。","一步一步，每步都算數。","路邊有朵小花在看你。","呼吸，慢慢走，不用趕。","山頂的風景在等你。"],
+ sky:["#d6f0ff","#eaffe0"],gr:"#8fd19e",sk:["☁️","🦋"],gd:["🌲","⛰️","🌿","🌲"]},
+{n:"狗狗太空任務",prop:"🛸",f:"🪐",w:"🪐 任務成功！地球說歡迎回家。",
+ g:["第一關「發射倒數」：3、2、1，不用緊張，這只是練習。","第二關「小行星帶」：閃開閃開，狗狗駕駛技術一流。","第三關「失重區」：飄著也是前進的一種。","第四關「月球背面」：很安靜，很適合放空。"],
+ i:"按「推一把」，小狗狗要出發去太空。",
+ p:["推一把！引擎發出可愛的嗡嗡聲。","窗外有顆星星對你眨眼。","地球在後面越來越小，煩惱也是。","飄一下沒關係，太空沒有塞車。","小狗狗回報：一切正常。"],
+ sky:["#0e1233","#2b1f5c"],gr:"#4b4f7a",sk:["⭐","🌙","✨","☄️","🌟"],gd:["🚀","🌑","🛰️"]},
+{n:"狗狗海邊衝浪",prop:"🏄",f:"🌴",w:"🌴 上岸！今天的浪都被你滑過了。",
+ g:["第一關「沙灘熱身」：腳底的沙子軟軟的，先站穩。","第二關「第一道浪」：浪來了不用硬撐，跟著它走。","第三關「海風區」：風很大，但你很穩。","第四關「夕陽」：回頭一看，浪都在你後面。"],
+ i:"按「推一把」，小狗狗要去海邊衝浪。",
+ p:["推一把！海浪在後面推你。","浪來了，順著它就好。","小狗狗站得很穩，姿勢很帥。","海風吹過，腦袋變輕了。","聽說今天的浪特別友善。"],
+ sky:["#cfeeff","#e9fbff"],gr:"#f6e0a8",sk:["☀️","☁️"],gd:["🌴","🐚","🦀","🌊"]},
+{n:"狗狗午睡挑戰",prop:"💤",f:"🛏️",w:"🛏️ 午睡成功！精神值回滿。",
+ g:["第一關「枕頭山」：先找一個最舒服的角度。","第二關「棉被海」：整個陷進去了，非常合理。","第三關「窗外鳥叫」：不用理它，繼續睡。","第四關「鬧鐘」：沒事，這是假的鬧鐘。"],
+ i:"按「推一把」，小狗狗要去午睡。",
+ p:["推一把！棉被正在招手。","打了一個很大的哈欠。","眼皮越來越重，很好。","枕頭溫度剛剛好。","小狗狗差點在半路睡著。"],
+ sky:["#e9e1ff","#fbe9ff"],gr:"#d9c9f5",sk:["🌙","☁️","💤"],gd:["🧸","🌱","📚"]},
+{n:"狗狗遊戲通關",prop:"🎮",f:"👑",w:"👑 全破！隱藏成就解鎖：你今天很棒。",
+ g:["第一關「新手村」：先領取免費的好心情。","第二關「小怪出沒」：是很弱的小怪，一碰就消失。","第三關「存檔點」：存檔完成，可以安心喝口水。","第四關「Boss 房前」：據說 Boss 今天請假。"],
+ i:"按「推一把」，小狗狗要去破關。",
+ p:["推一把！撿到一枚金幣。","小怪看到你自己跑掉了。","經驗值 +10，沒人知道為什麼。","手感不錯，連擊中！","前面有個神秘寶箱。"],
+ sky:["#c7f5ff","#fff0b8"],gr:"#3ddc84",sk:["⭐","☁️"],gd:["🍄","🧱","💎","🍄"]}
+];
+const REACT=["汪！","（甩一下耳朵）","（吐舌頭）","（打了個哈欠）","（尾巴搖得更用力了）","（舔舔鼻子）","（歪頭看你）","（開心轉圈圈）"];
+
+/* 運勢 */
+const pk=(a,n,k)=>a[(n*k+(n>>1))%a.length];
+const LV=["大吉","中吉","小吉","吉","中吉","大吉"];
+const STARS={"大吉":5,"中吉":4,"小吉":3,"吉":4};
+const YI=["喝一杯喜歡的飲料","曬一下太陽","聽一首好聽的歌","吃點甜的","伸個懶腰","打開窗戶","睡個午覺","出門走五分鐘","玩一場遊戲","看一支好笑的影片","整理桌面","看看滑板影片"];
+const JI=["熬夜","想太多","跟自己過不去","空腹喝咖啡","一直滑手機","把自己想得太糟","忘記喝水","硬撐","拿自己跟別人比","久坐不動"];
+const LI=["珍珠奶茶","耳機","好吃的點心","柔軟的外套","舒服的拖鞋","一顆糖","喜歡的歌單","熱茶"];
+const LC=["粉色","綠色","薄荷綠","蜜桃粉","草綠色","櫻花粉"];
+
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const track=$('track'),dog=$('dog'),dogIn=$('dogIn'),say=$('say'),pushB=$('push'),resetB=$('reset'),fin=$('fin'),gatesEl=$('gates'),scEl=$('scenery'),bubble=$('bubble');
+dogIn.innerHTML=DOG;$('dogEnd').innerHTML=DOG;
+$('dogEnd').setAttribute('aria-hidden','true');
+
+let pendingEnter=false;
+let THEME=THEMES[0],GATES=DEFG,PUSH=THEME.p,pos=0,seen=0,rollT=0,talkT=0,lastReact=-1;
+
+const geo=()=>({W:track.clientWidth,D:dog.offsetWidth});
+function X(p){const{W,D}=geo();return 8+Math.max(0,W-D-8-52)*p/100}
+function place(){if(pendingEnter)return;dog.style.transform='translateX('+X(pos)+'px)'}
+function layoutGates(){
+  gatesEl.textContent='';const{D}=geo();
+  GATES.forEach((g,i)=>{const e=document.createElement('div');e.className='gate';e.style.left=(X(g[0])+D*.92)+'px';e.innerHTML='<b>'+(i+1)+'</b>';gatesEl.appendChild(e)});
+  markGates();
+}
+function markGates(){[...gatesEl.children].forEach((e,i)=>e.classList.toggle('done',pos>=GATES[i][0]))}
+
+function setTheme(t){
+  THEME=t;GATES=t.g?t.g.map((x,i)=>[(i+1)*20,x]):DEFG;PUSH=t.p;
+  $('gl').textContent='MINI GAME　'+t.n;
+  track.style.setProperty('--sky1',t.sky[0]);track.style.setProperty('--sky2',t.sky[1]);track.style.setProperty('--gr',t.gr);
+  fin.textContent=t.f;$('prop').textContent=t.prop||'';
+  scEl.textContent='';
+  const put=(arr,cls,off)=>arr.forEach((c,k)=>{const e=document.createElement('span');e.className='sc '+cls;e.textContent=c;e.setAttribute('aria-hidden','true');e.style.left=(off+k*(78/Math.max(1,arr.length-1)))+'%';if(arr.length===1)e.style.left='50%';scEl.appendChild(e)});
+  put(t.gd,'g',8);put(t.sk,'s',16);
+}
+function enter(){
+  pendingEnter=false;dog.style.transition='none';dog.style.transform='translateX(-'+(dog.offsetWidth+40)+'px)';void dog.offsetWidth;dog.style.transition='';
+  dog.classList.add('rolling');place();clearTimeout(rollT);rollT=setTimeout(()=>dog.classList.remove('rolling'),950);
+}
+function resetGame(){
+  pos=0;seen=0;pushB.disabled=false;fin.classList.remove('hop');
+  track.querySelectorAll('.confetti,.puff').forEach(e=>e.remove());
+  say.textContent=THEME.i;place();markGates();
+}
+
+function puffs(){
+  if(reduce)return;let k=0;
+  const iv=setInterval(()=>{
+    const r=dog.getBoundingClientRect(),t=track.getBoundingClientRect();
+    const e=document.createElement('i');e.className='puff';e.style.left=(r.left-t.left+r.width*.14)+'px';
+    track.appendChild(e);e.addEventListener('animationend',()=>e.remove());
+    if(++k>=6)clearInterval(iv);
+  },110);
+}
+function celebrate(){
+  fin.classList.add('hop');
+  if(reduce)return;
+  const box=document.createElement('div');box.className='confetti';
+  const cols=['#ff5fa8','#3ddc84','#ffffff','#ffd400','#111111'];
+  for(let i=0;i<40;i++){const s=document.createElement('s');
+    s.style.cssText='left:'+Math.random()*100+'%;background:'+cols[i%5]+';animation-delay:'+Math.random()*.6+'s;animation-duration:'+(1.6+Math.random()*1.2)+'s;--r:'+Math.floor(Math.random()*720-360)+'deg';
+    box.appendChild(s)}
+  track.appendChild(box);setTimeout(()=>box.remove(),3600);
+}
+function push(){
+  if(pos>=100)return;
+  pendingEnter=false;
+  pos=Math.min(100,pos+8+Math.floor(Math.random()*5));
+  let msg=PUSH[Math.floor(Math.random()*PUSH.length)],crossed=false;
+  GATES.forEach((g,i)=>{if(pos>=g[0]&&seen<=i){seen=i+1;msg=g[1];crossed=true}});
+  const won=pos>=100;if(won)msg=THEME.w;
+  say.textContent=msg;
+  dog.classList.add('rolling');place();puffs();
+  if(crossed&&!reduce){dogIn.classList.remove('jump','hopx');void dogIn.offsetWidth;dogIn.classList.add('jump')}
+  clearTimeout(rollT);rollT=setTimeout(()=>{dog.classList.remove('rolling');markGates()},850);
+  if(won){pushB.disabled=true;setTimeout(celebrate,reduce?0:700)}
+}
+function react(){
+  let i;do{i=Math.floor(Math.random()*REACT.length)}while(i===lastReact);lastReact=i;
+  bubble.textContent=REACT[i];
+  const{W}=geo(),D=dog.offsetWidth,x=X(pos),bw=bubble.offsetWidth;
+  let left=D/2-bw/2;left=Math.min(Math.max(left,4-x),W-4-bw-x);bubble.style.left=left+'px';
+  dog.classList.add('talk','happy');
+  if(!reduce){dogIn.classList.remove('jump','hopx');void dogIn.offsetWidth;dogIn.classList.add('hopx')}
+  clearTimeout(talkT);talkT=setTimeout(()=>dog.classList.remove('talk','happy'),1500);
+}
+pushB.addEventListener('click',push);
+resetB.addEventListener('click',resetGame);
+dog.addEventListener('click',react);
+addEventListener('resize',()=>{place();layoutGates()});
+
+/* 依日期顯示 */
+let lastIdx=null;
+function applyDate(d){
+  const idx=Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-START)/864e5);
+  const over=idx>LAST;
+  $('live').hidden=over;$('end').hidden=!over;
+  if(over){lastIdx=idx;return}
+  const n=Math.max(0,idx);lastIdx=idx;
+  $('today').textContent=LINES[n%LINES.length];
+  $('tv').textContent=TRIVIA[n%TRIVIA.length];
+  $('mm').textContent=MEMES[(n*5+3)%MEMES.length];
+  const lv=pk(LV,n,5),st=STARS[lv],S=(id,v)=>{$(id).textContent=v};
+  S('fl',lv);S('fs','★'.repeat(st)+'☆'.repeat(5-st));S('fy',pk(YI,n,7));S('fj',pk(JI,n,3));S('fi',pk(LI,n,5));S('fc',pk(LC,n,1));
+  setTheme(THEMES[n%THEMES.length]);
+  resetGame();layoutGates();
+}
+window.applyDate=applyDate;
+
+const q=new URLSearchParams(location.search).get('date');
+let fixed=null;
+if(q&&/^\d{4}-\d{2}-\d{2}$/.test(q)){const p=q.split('-');fixed=new Date(+p[0],+p[1]-1,+p[2],12)}
+if(!reduce&&'IntersectionObserver' in window){
+  pendingEnter=true;dog.style.transition='none';dog.style.transform='translateX(-300px)';
+  const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();enter()}},{threshold:.5});io.observe(track);
+}
+applyDate(fixed||new Date());
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden||fixed)return;
+  const d=new Date(),idx=Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-START)/864e5);
+  if(idx!==lastIdx)applyDate(d);
+});
+})();
+</script>
+</body>
+</html>
